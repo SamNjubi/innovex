@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, TemplateRef, ViewChild } from '@angular/core';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-root',
@@ -30,7 +31,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   currentClockTime: Date;
   allTasks = [];
 
-  constructor(private el: ElementRef, private renderer: Renderer2) {
+  modalRef?: BsModalRef;
+
+  constructor(private el: ElementRef, private renderer: Renderer2, private modalService: BsModalService) {
   }
   ngOnInit(): void {
   }
@@ -86,12 +89,12 @@ export class AppComponent implements OnInit, AfterViewInit {
     // increment number of running servers
     this.runningServers = this.runningServers + randomStartServers;
     // get a random color(rc) and assign to wall color
-    this.wall_color = Math.floor(Math.random()*16777215).toString(16); 
+    this.wall_color = `#${Math.floor(Math.random()*16777215).toString(16)}`; 
     // send number along with random wall color(rc)
     const nowtime = new Date();
     this.currenttask = {
       title: 'START',
-      description: `${randomStartServers}, started at ${this.currentClockTime}`,
+      description: `${this.currentClockTime} - start ${randomStartServers} servers `,
       color: this.wall_color,
       system_time: nowtime
     }
@@ -103,13 +106,13 @@ export class AppComponent implements OnInit, AfterViewInit {
     // decrement number of running servers by the random number
     this.runningServers = this.runningServers - randomStopServers;
     // get a random clock face color(rcfc)
-    this.clock_face_color = Math.floor(Math.random()*16777215).toString(16);
+    this.clock_face_color = `#${Math.floor(Math.random()*16777215).toString(16)}`;
     // send number along with random clock face color(rcfc)
     const nowtime = new Date();
 
     this.currenttask = {
       title: 'STOP',
-      description: `${randomStopServers}, stopped at ${this.currentClockTime}`,
+      description: `${this.currentClockTime} - stop ${randomStopServers} servers `,
       color: this.clock_face_color,
       system_time: nowtime
     }
@@ -118,7 +121,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
   reportServer(): void {
     // get a random hour label color (rhlc)
-    this.hour_label_color = Math.floor(Math.random()*16777215).toString(16);
+    this.hour_label_color = `#${Math.floor(Math.random()*16777215).toString(16)}`;
     // send number along with a random hour label color(rhlc)
     const nowtime = new Date();
     this.currenttask = {
@@ -135,5 +138,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
-  
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
 }

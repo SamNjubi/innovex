@@ -10,59 +10,61 @@
     <div class="clock-section" style="height: 60%;">
       <div class="background">
         <div class="container" data-container>
-          <div class="grids" data-grids style="background-color: #999a9a;"></div>
-          <div class="grids" style="background-color: #999a9a;"></div>
-          <div class="grids" style="background-color: #999a9a;"></div>
-          <div class="grids" style="background-color: #999a9a;"></div>
-          <div class="grids" style="background-color: #999a9a;"></div>
-          <div class="grids" style="background-color: #999a9a;"></div>
-          <div class="grids" style="background-color: #999a9a;"></div>
-          <div class="grids" style="background-color: #999a9a;"></div>
-          <div class="grids" style="background-color: #999a9a;"></div>
-          <div class="grids" style="background-color: #999a9a;"></div>
-          <div class="grids" style="background-color: #999a9a;"></div>
-          <div class="grids" style="background-color: #999a9a;"></div>
+          <div class="grids" data-grids style="background-color: #999a9a;" [ngStyle]="{'background-color': wall_color}"></div>
+          <div class="grids" style="background-color: #999a9a;" [ngStyle]="{'background-color': wall_color}"></div>
+          <div class="grids" style="background-color: #999a9a;" [ngStyle]="{'background-color': wall_color}"></div>
+          <div class="grids" style="background-color: #999a9a;" [ngStyle]="{'background-color': wall_color}"></div>
+          <div class="grids" style="background-color: #999a9a;" [ngStyle]="{'background-color': wall_color}"></div>
+          <div class="grids" style="background-color: #999a9a;" [ngStyle]="{'background-color': wall_color}"></div>
+          <div class="grids" style="background-color: #999a9a;" [ngStyle]="{'background-color': wall_color}"></div>
+          <div class="grids" style="background-color: #999a9a;" [ngStyle]="{'background-color': wall_color}"></div>
+          <div class="grids" style="background-color: #999a9a;" [ngStyle]="{'background-color': wall_color}"></div>
+          <div class="grids" style="background-color: #999a9a;" [ngStyle]="{'background-color': wall_color}"></div>
+          <div class="grids" style="background-color: #999a9a;" [ngStyle]="{'background-color': wall_color}"></div>
+          <div class="grids" style="background-color: #999a9a;" [ngStyle]="{'background-color': wall_color}"></div>
         </div>
       </div>
       <div class="clock">
-        <div class="outer-clock-face">
+        <div class="outer-clock-face" [ngStyle]="{'background-color': clock_face_color}">
           <div class="marking marking-one"></div>
           <div class="marking marking-two"></div>
           <div class="marking marking-three"></div>
           <div class="marking marking-four"></div>
           <div class="inner-clock-face">
-            <div #hourHand class="hand hour-hand"></div>
+            <div #hourHand class ="hand hour-hand" [ngStyle]="{'background-color': hour_label_color}"></div>
             <div #minsHand class="hand min-hand"></div>
             <div #secondHand class="hand second-hand"></div>
           </div>
         </div>
       </div>
-  <div class="task-section card shadow p-3" style="height: 7rem; border-radius: 0.5rem; border-left-color: #d10700; border-left-width: 0.5rem;">
+  <div class="task-section card shadow p-3" [ngStyle]="{'border-left-color': currenttask.color}" style="height: 7rem; border-radius: 0.5rem; border-left-width: 0.5rem;">
     <div class="d-flex justify-content-between">
-      <h4 class="text-muted"> Task: {{currenttask.system_time | date: 'mediumTime'}} </h4>
-      <button type="button" class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+      <h4 class="text-muted"> <span *ngIf="currenttask.title">Task:</span> {{currenttask.system_time | date: 'mediumTime'}} </h4>
+      <button type="button" class="btn btn-primary me-3" (click)="openModal(template)" *ngIf="allTasks.length>0">
         View Report
       </button>
+    </div>
+    <h6> <span class="text-muted" *ngIf="currenttask.title"> {{currenttask.title}}: </span> {{currenttask.description}} </h6>
+  </div>
+  </div>
+</div>
 
-<div class="modal modal-dialog-centered modal-dialog-scrollable fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
-      </div>
-    </div>
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">All Tasks</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
   </div>
-</div>
-    </div>
-    <h6> <span class="text-muted"> {{currenttask.title}}: </span> {{currenttask.description}} </h6>
+  <div class="modal-body">
+    <ol class="list-group list-group-numbered">
+      <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let item of allTasks">
+        <div class="ms-2 me-auto">
+          <div class="fw-bold">{{item.title}}</div>
+          {{item.description}}
+        </div>
+        <span class="badge bg-primary rounded-pill">{{item.system_time | date: 'shortTime'}}</span>
+      </li>
+    </ol>
   </div>
-  </div>
-</div>
+</ng-template>
