@@ -1,0 +1,68 @@
+<div class="container-fluid p-4" style="">
+  <nav class="navbar navbar-light bg-light shadow">
+    <div class="">
+      <a class="navbar-brand" href="#">
+        <img src="assets/images/innovex-logo.svg" alt="" style="height: 3rem;">
+      </a>
+    </div>
+  </nav>
+  <div class="d-flex flex-column" style="height: 98vh;">
+    <div class="clock-section" style="height: 60%;">
+      <div class="background">
+        <div class="container" data-container>
+          <div class="grids" data-grids style="background-color: #999a9a;"></div>
+          <div class="grids" style="background-color: #999a9a;"></div>
+          <div class="grids" style="background-color: #999a9a;"></div>
+          <div class="grids" style="background-color: #999a9a;"></div>
+          <div class="grids" style="background-color: #999a9a;"></div>
+          <div class="grids" style="background-color: #999a9a;"></div>
+          <div class="grids" style="background-color: #999a9a;"></div>
+          <div class="grids" style="background-color: #999a9a;"></div>
+          <div class="grids" style="background-color: #999a9a;"></div>
+          <div class="grids" style="background-color: #999a9a;"></div>
+          <div class="grids" style="background-color: #999a9a;"></div>
+          <div class="grids" style="background-color: #999a9a;"></div>
+        </div>
+      </div>
+      <div class="clock">
+        <div class="outer-clock-face">
+          <div class="marking marking-one"></div>
+          <div class="marking marking-two"></div>
+          <div class="marking marking-three"></div>
+          <div class="marking marking-four"></div>
+          <div class="inner-clock-face">
+            <div #hourHand class="hand hour-hand"></div>
+            <div #minsHand class="hand min-hand"></div>
+            <div #secondHand class="hand second-hand"></div>
+          </div>
+        </div>
+      </div>
+  <div class="task-section card shadow p-3" style="height: 7rem; border-radius: 0.5rem; border-left-color: #d10700; border-left-width: 0.5rem;">
+    <div class="d-flex justify-content-between">
+      <h4 class="text-muted"> Task: {{currenttask.system_time | date: 'mediumTime'}} </h4>
+      <button type="button" class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        View Report
+      </button>
+
+<div class="modal modal-dialog-centered modal-dialog-scrollable fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+    </div>
+  </div>
+</div>
+    </div>
+    <h6> <span class="text-muted"> {{currenttask.title}}: </span> {{currenttask.description}} </h6>
+  </div>
+  </div>
+</div>
