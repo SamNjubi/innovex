@@ -1,6 +1,6 @@
-<div class="container-fluid p-4" style="">
+<div class="container-fluid p-4">
   <nav class="navbar navbar-light bg-light shadow">
-    <div class="">
+    <div class="ms-3 mt-1">
       <a class="navbar-brand" href="#">
         <img src="assets/images/innovex-logo.svg" alt="" style="height: 3rem;">
       </a>
@@ -58,13 +58,14 @@
   </div>
   <div class="modal-body">
     <ol class="list-group list-group-numbered">
-      <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let item of allTasks">
+      <li class="list-group-item d-flex justify-content-between align-items-start mb-3" *ngFor="let item of allTasks | paginate: { itemsPerPage: 6, currentPage: p }">
         <div class="ms-2 me-auto">
           <div class="fw-bold">{{item.title}}</div>
           {{item.description}}
         </div>
         <span class="badge bg-primary rounded-pill">{{item.system_time | date: 'shortTime'}}</span>
       </li>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </ol>
   </div>
 </ng-template>

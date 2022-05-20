@@ -32,7 +32,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   allTasks = [];
 
   modalRef?: BsModalRef;
-
+  p: number = 1;
+  
   constructor(private el: ElementRef, private renderer: Renderer2, private modalService: BsModalService) {
   }
   ngOnInit(): void {
